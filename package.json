@@ -1,0 +1,25 @@
+{
+  "name": "voice_conversion_lab",
+  "version": "1.0.0",
+  "description": "Collect Voice Conversion researches",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tarepan/VoiceConversionLab.git"
+  },
+  "keywords": [
+    "VoiceConversion"
+  ],
+  "author": "Tarepan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tarepan/VoiceConversionLab/issues"
+  },
+  "homepage": "https://github.com/tarepan/VoiceConversionLab#readme",
+  "devDependencies": {
+    "prettier": "^1.19.1"
+  }
+}

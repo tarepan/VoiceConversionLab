@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "eslint:recommended", // baseline ON&OFF with eslint recommened rules
+    "plugin:jest/recommended",
+    "plugin:@typescript-eslint/eslint-recommended", // TSnization of eslint-recommended
+    "plugin:@typescript-eslint/recommended", // utility which enable ES-eslint plugins at once (no type check)
+    "plugin:prettier/recommended", // utility which enable both eslint-config/plugin-prettier
+    // "plugin:@typescript-eslint/recommended-requiring-type-checking" // option (with type check)
+    "prettier/@typescript-eslint"
+  ],
+  "plugins": ["@typescript-eslint"],
+  "parser": "@typescript-eslint/parser",
+  "env": { "browser": true, "node": true, "es6": true }
+  //   "parserOptions": { // for type-checking TSlint/recommended
+  //     "project": "./tsconfig.json"
+  //   },
+}
