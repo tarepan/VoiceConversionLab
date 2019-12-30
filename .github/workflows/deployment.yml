@@ -10,4 +10,4 @@ jobs:
         uses: actions/checkout@v1
 
       - name: Tweet
-        uses: ./.github/actions/action.yml
+        uses: ./.github/actions/testAction
