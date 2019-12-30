@@ -1,9 +1,10 @@
-import core from "@actions/core";
+import * as core from "@actions/core";
 import { tweet } from "./twitter";
 
 try {
   // `who-to-greet` input defined in action metadata file
   (async (): Promise<void> => {
+    console.log(`input twi-cons-key: ${core.getInput("twi-cons-key")}`);
     await tweet(
       new Date().toTimeString(),
       core.getInput("twi-cons-key"),

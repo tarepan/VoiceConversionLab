@@ -13,8 +13,6 @@ jobs:
         run: |
           npm ci
           npm run-script build
-      # - name: Tweet
-      #   uses: ./.github/actions/testAction
 
       - name: Tweet
         uses: ./.github/actions/TweetAction
