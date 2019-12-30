@@ -37,22 +37,25 @@ async function run(): Promise<void> {
       status: "candidate"
     });
     // commit storage update
+    const blob = Buffer.from(JSON.stringify(storage));
     await octokit.repos
       .createOrUpdateFile({
         ...github.context.repo,
         path: "arXivSearches.json",
         message: `Add new arXiv search result ${theNewPaper.id}`,
-        content: new Buffer(JSON.stringify(storage)).toString("base64")
+        content: blob.toString("base64"),
+        // @ts-ignore
+        sha: contents.data.sha
       })
-      .catch(err => console.log(err));
+      .catch(err => core.setFailed(err));
     // open candidate check issue
     await octokit.issues
       .create({
         ...github.context.repo,
         title: `'Voice Conversion' paper candidate ${theNewPaper.id}`,
-        body: `Please check whether this paper is about 'Voice Conversion' or not.\n## article info.\n- title: ${theNewPaper.title}\n- summary: ${theNewPaper.summary}\n- id: ${theNewPaper.id}\n## judge\nWrite 'confirmed' or 'excluded' in [] as comment.`
+        body: `Please check whether this paper is about 'Voice Conversion' or not.\n## article info.\n- title: **${theNewPaper.title}**\n- summary: ${theNewPaper.summary}\n- id: ${theNewPaper.id}\n## judge\nWrite 'confirmed' or 'excluded' in [] as comment.`
       })
-      .catch(err => console.log(err));
+      .catch(err => core.setFailed(err));
     // tweet candidate info
   }
 }

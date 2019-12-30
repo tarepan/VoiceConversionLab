@@ -13,10 +13,11 @@ jobs:
         run: |
           npm ci
           npm run-script build
-      # - name: Fetch Storage
-      #   uses: ./.github/actions/testAction
-      #   with:
-      #     token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Fetch Storage
+        uses: ./.github/actions/testAction
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       # - name: Tweet
       #   uses: ./.github/actions/TweetAction
       #   with:
