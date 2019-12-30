@@ -4,8 +4,6 @@ import { searchArXiv } from "./arXivSearch";
 import { ArXivStorage } from "./domain";
 import { tweet } from "./twitter";
 
-console.log("hello, this is test act.");
-
 async function run(): Promise<void> {
   // fetch search result
   const searchResults = await searchArXiv();
@@ -74,12 +72,10 @@ async function run(): Promise<void> {
         console.log(res.status);
         return res.text();
       })
-      .then(res => {
-        console.log(res);
-      })
       .catch(err => {
         core.setFailed(err);
       });
+    console.log("tweet created.");
   }
 }
 
