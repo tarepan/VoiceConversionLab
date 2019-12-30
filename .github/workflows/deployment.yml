@@ -15,7 +15,7 @@ jobs:
           npm run-script build
 
       - name: Tweet
-        if: secrets.SHOULDRUN == 1
+        if: ${{ secrets.SHOULDRUN == 1 }}
         uses: ./.github/actions/TweetAction
         with:
           twi-cons-key: ${{ secrets.TWITTERCONSUMERKEY }}
