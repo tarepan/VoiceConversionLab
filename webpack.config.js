@@ -18,7 +18,13 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: [".ts", ".js", ".tsx"]
+    extensions: [".ts", ".js", ".tsx"],
+    alias: {
+      "universal-user-agent": path.resolve(
+        __dirname,
+        "node_modules/universal-user-agent/dist-node/index.js"
+      )
+    }
   },
   output: {
     path: path.resolve(__dirname, "dist"),
