@@ -1,6 +1,6 @@
 import "./arXivSearch";
 import * as core from "@actions/core";
-import github from "@actions/github";
+import * as github from "@actions/github";
 
 console.log("hello, this is test act.");
 
