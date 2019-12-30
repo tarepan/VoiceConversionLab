@@ -1,7 +1,7 @@
 name: Check arXiv papers
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "*/1000 * * * *"
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -15,7 +15,6 @@ jobs:
           npm run-script build
 
       - name: Tweet
-        if: ${{ secrets.SHOULDRUN == 1 }}
         uses: ./.github/actions/TweetAction
         with:
           twi-cons-key: ${{ secrets.TWITTERCONSUMERKEY }}
