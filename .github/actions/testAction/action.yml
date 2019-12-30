@@ -2,4 +2,4 @@ name: "Tweet"
 description: "Tweet a sentence"
 runs:
   using: "node12"
-  main: ".github/actions/testAction/testAct.js"
+  main: "testAct.js"
