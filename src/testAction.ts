@@ -13,7 +13,13 @@ async function run(): Promise<void> {
     ...github.context.repo,
     path: "arXivSearches.json"
   });
-  console.log(contents.data);
+  const contentsStg = Buffer.from(
+    //@ts-ignore
+    contents.data.content,
+    //@ts-ignore
+    contents.data.encoding
+  ).toString();
+  console.log(contentsStg);
 }
 
 run();
