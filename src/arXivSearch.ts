@@ -1,14 +1,8 @@
 import fetch from "node-fetch";
 import { xml2json } from "xml-js";
+import { ArXivSearchResults, SearchedPaper } from "./domain";
 
-type ArXivPaper = {
-  id: string;
-  title: string;
-  summary: string;
-};
-type ArXivSearchResults = ArXivPaper[];
-
-(async () => {
+export async function searchArXiv(): Promise<ArXivSearchResults> {
   const res = await fetch(
     'http://export.arxiv.org/api/query?search_query="voice+conversion"&max_results=1000'
   );
@@ -18,12 +12,12 @@ type ArXivSearchResults = ArXivPaper[];
       compact: true
     })
   );
-  //@ts-ignore
-  const searchResults: ArXivSearchResults = resJson.feed.entry.map(result => ({
-    id: result.id._text,
-    title: result.title._text,
-    summary: result.summary._text
-  }));
-
-  console.log(searchResults);
-})();
+  return resJson.feed.entry.map(
+    //@ts-ignore
+    (result): SearchedPaper => ({
+      id: result.id._text,
+      title: result.title._text,
+      summary: result.summary._text
+    })
+  );
+}
