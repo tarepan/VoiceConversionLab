@@ -1,0 +1,13 @@
+name: Check arXiv papers
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Tweet
+        uses: ./.github/actions/action.yml
