@@ -1,5 +1,10 @@
 name: "Test"
 description: "test"
+inputs:
+  token:
+    description: "GITHUB_TOKEN"
+    required: true
+    default: ""
 runs:
   using: "node12"
   main: "../../../dist/testAction.js"

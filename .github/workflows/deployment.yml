@@ -1,7 +1,7 @@
 name: Check arXiv papers
 on:
   schedule:
-    - cron: "*/1000 * * * *"
+    - cron: "*/5 * * * *"
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -14,10 +14,14 @@ jobs:
           npm ci
           npm run-script build
 
-      - name: Tweet
-        uses: ./.github/actions/TweetAction
+      - name: Fetch Storage
+        uses: ./.github/actions/testAction
         with:
-          twi-cons-key: ${{ secrets.TWITTERCONSUMERKEY }}
-          twi-cons-secret: ${{ secrets.TWITTERCONSUMERSECRET }}
-          twi-token-key: ${{ secrets.TWITTERTOKENKEY }}
-          twi-token-secret: ${{ secrets.TWITTERTOKENSECRET }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Tweet
+      #   uses: ./.github/actions/TweetAction
+      #   with:
+      #     twi-cons-key: ${{ secrets.TWITTERCONSUMERKEY }}
+      #     twi-cons-secret: ${{ secrets.TWITTERCONSUMERSECRET }}
+      #     twi-token-key: ${{ secrets.TWITTERTOKENKEY }}
+      #     twi-token-secret: ${{ secrets.TWITTERTOKENSECRET }}
