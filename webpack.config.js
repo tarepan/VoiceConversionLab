@@ -5,7 +5,7 @@ module.exports = {
   target: "node",
   entry: {
     testAction: "./src/testAction.js",
-    TweetAction: "./src/TweetAction.js"
+    TweetAction: "./src/TweetAction.ts"
   },
   devtool: "inline-source-map",
   module: {
