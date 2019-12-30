@@ -24,6 +24,7 @@
     "@types/jest": "^24.0.25",
     "@types/node": "^13.1.1",
     "@types/node-fetch": "^2.5.4",
+    "@types/strict-uri-encode": "^2.0.0",
     "@types/xml-js": "^1.0.0",
     "@typescript-eslint/eslint-plugin": "^2.13.0",
     "@typescript-eslint/parser": "^2.13.0",
@@ -46,6 +47,7 @@
     "@actions/github": "^2.0.0",
     "node-fetch": "^2.6.0",
     "oauth-1.0a": "^2.2.6",
+    "strict-uri-encode": "^2.0.0",
     "xml-js": "^1.6.11"
   }
 }

@@ -1,7 +1,7 @@
-// const request = require("request");
 import OAuth from "oauth-1.0a";
 import crypto from "crypto";
 import fetch, { Response } from "node-fetch";
+import strictUriEncode from "strict-uri-encode";
 
 export async function tweet(
   msg: string,
@@ -11,7 +11,9 @@ export async function tweet(
   tokenSecret: string
 ): Promise<Response> {
   const requestData = {
-    url: `https://api.twitter.com/1.1/statuses/update.json?status=${msg}`,
+    url: `https://api.twitter.com/1.1/statuses/update.json?status=${strictUriEncode(
+      msg
+    )}`,
     method: "POST"
   };
 
@@ -46,7 +48,7 @@ export async function tweet(
 
 // test
 // tweet(
-//   "helloworld",
+//   `how are you I am OK ? ${new Date().toTimeString()}`,
 // )
 //   .then(res => {
 //     console.log(res.status);
