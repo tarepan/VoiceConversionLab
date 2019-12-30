@@ -2,6 +2,7 @@ const path = require("path");
 
 module.exports = {
   mode: "development",
+  target: "node",
   entry: {
     testAction: "./src/testAction.js"
   },
