@@ -4,7 +4,8 @@
   "description": "Collect Voice Conversion researches",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "package": "ncc build ./src/testAction.js -o ./dist"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,7 @@
     "@types/xml-js": "^1.0.0",
     "@typescript-eslint/eslint-plugin": "^2.13.0",
     "@typescript-eslint/parser": "^2.13.0",
+    "@zeit/ncc": "^0.20.5",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-jest": "^23.2.0",
