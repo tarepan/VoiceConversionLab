@@ -13,6 +13,13 @@ jobs:
         run: |
           npm ci
           npm run-script build
+      # - name: Tweet
+      #   uses: ./.github/actions/testAction
 
       - name: Tweet
-        uses: ./.github/actions/testAction
+        uses: ./.github/actions/TweetAction
+        with:
+          twi-cons-key: ${{ secrets.TWITTERCONSUMERKEY }}
+          twi-cons-secret: ${{ secrets.TWITTERCONSUMERSECRET }}
+          twi-token-key: ${{ secrets.TWITTERTOKENKEY }}
+          twi-token-secret: ${{ secrets.TWITTERTOKENSECRET }}

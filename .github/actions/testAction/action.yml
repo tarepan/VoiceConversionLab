@@ -1,5 +1,5 @@
-name: "Tweet"
-description: "Tweet a sentence"
+name: "Test"
+description: "test"
 runs:
   using: "node12"
   main: "../../../dist/testAction.js"
