@@ -9,19 +9,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: BuildAction
+      - name: Build Actions
         run: |
           npm ci
           npm run-script build
 
-      - name: Fetch Storage
+      - name: Collect and Update
         uses: ./.github/actions/testAction
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Tweet
-      #   uses: ./.github/actions/TweetAction
-      #   with:
-      #     twi-cons-key: ${{ secrets.TWITTERCONSUMERKEY }}
-      #     twi-cons-secret: ${{ secrets.TWITTERCONSUMERSECRET }}
-      #     twi-token-key: ${{ secrets.TWITTERTOKENKEY }}
-      #     twi-token-secret: ${{ secrets.TWITTERTOKENSECRET }}
+          twi-cons-key: ${{ secrets.TWITTERCONSUMERKEY }}
+          twi-cons-secret: ${{ secrets.TWITTERCONSUMERSECRET }}
+          twi-token-key: ${{ secrets.TWITTERTOKENKEY }}
+          twi-token-secret: ${{ secrets.TWITTERTOKENSECRET }}
