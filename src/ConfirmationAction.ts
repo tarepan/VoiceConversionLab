@@ -4,6 +4,7 @@ import { searchArXiv } from "./arXivSearch";
 import { ArXivStorage } from "./domain";
 import { tweet } from "./twitter";
 import * as WebhooksApi from "@octokit/webhooks";
+import { updateArticleStatus } from "./updateArticles";
 
 async function run(): Promise<void> {
   //@ts-ignore
@@ -46,38 +47,42 @@ async function run(): Promise<void> {
 
       // update store
       //// fetch storage
-      // const octokit = new github.GitHub(core.getInput("token"));
-      // const contents = await octokit.repos.getContents({
-      //   ...github.context.repo,
-      //   path: "arXivSearches.json"
-      // });
-      // const storage: ArXivStorage = JSON.parse(
-      //   Buffer.from(
-      //     //@ts-ignore
-      //     contents.data.content,
-      //     //@ts-ignore
-      //     contents.data.encoding
-      //   ).toString()
-      // );
-      // commit storage update
-      // const blob = Buffer.from(JSON.stringify(storage));
-      // await octokit.repos
-      //   .createOrUpdateFile({
-      //     ...github.context.repo,
-      //     path: "arXivSearches.json",
-      //     message: `Add new arXiv search result ${theNewPaper.id}`,
-      //     content: blob.toString("base64"),
-      //     // @ts-ignore
-      //     sha: contents.data.sha
-      //   })
-      //   .catch(err => core.setFailed(err));
+      const contents = await octokit.repos.getContents({
+        ...github.context.repo,
+        path: "arXivSearches.json"
+      });
+      const storage: ArXivStorage = JSON.parse(
+        Buffer.from(
+          //@ts-ignore
+          contents.data.content,
+          //@ts-ignore
+          contents.data.encoding
+        ).toString()
+      );
+      //// update storage
+      const judgeResult = isC !== null ? "confirmed" : "excluded";
+      const newStorage = updateArticleStatus(storage, id, judgeResult);
+      //// commit storage update
+      const blob = Buffer.from(JSON.stringify(newStorage));
+      await octokit.repos
+        .createOrUpdateFile({
+          ...github.context.repo,
+          path: "arXivSearches.json",
+          message: `Add arXiv paper confirmation judge '${judgeResult}' toward ${id}`,
+          content: blob.toString("base64"),
+          // @ts-ignore
+          sha: contents.data.sha
+        })
+        .catch(err => core.setFailed(err));
 
       if (isC !== null) {
         console.log("is [vclab::confirmed]");
         // const content = `[VC paper]\n"${theNewPaper.title}"\narXiv: ${theNewPaper.id}`
-        const content = "test tweet for new feature";
+        const paperTitle = "test";
+        const content = `[VC paper]\n"${paperTitle}"\narXiv: ${id}`;
 
         // tweet confirmed paper
+        // working tested.
         await tweet(
           content,
           core.getInput("twi-cons-key"),
