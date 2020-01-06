@@ -55,7 +55,7 @@ async function run(): Promise<void> {
       .create({
         ...github.context.repo,
         title: `'Voice Conversion' paper candidate ${theNewPaper.id}`,
-        body: `Please check whether this paper is about 'Voice Conversion' or not.\n## article info.\n- title: **${theNewPaper.title}**\n- summary: ${theNewPaper.summary}\n- id: ${theNewPaper.id}\n## judge\nWrite 'confirmed' or 'excluded' in [] as comment.`
+        body: `Please check whether this paper is about 'Voice Conversion' or not.\n## article info.\n- title: **${theNewPaper.title}**\n- summary: ${theNewPaper.summary}\n- id: ${theNewPaper.id}\n## judge\nWrite [vclab::confirmed] or [vclab::excluded] in comment.`
       })
       .catch(err => core.setFailed(err));
     console.log("issue created.");

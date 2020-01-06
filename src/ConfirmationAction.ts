@@ -18,16 +18,18 @@ async function run(): Promise<void> {
     const id = regResult[1];
 
     // extract judge
-    const c = /\[confirmed\]/;
-    const e = /\[excluded\]/;
+    const c = /\[vclab::confirmed\]|\[confirmed\]/;
+    const e = /\[vclab::excluded\]|\[excluded\]/;
 
     const isC = c.exec(issueCommentPayload.comment.body);
     const isE = e.exec(issueCommentPayload.comment.body);
 
     if (isC !== null) {
-      console.log("is [confirmed]");
+      console.log("is [vclab::confirmed]");
     } else if (isE !== null) {
-      console.log("is [excluded]");
+      console.log("is [vclab::excluded]");
+    } else {
+      console.log("Neither");
     }
   }
 
