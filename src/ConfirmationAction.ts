@@ -68,7 +68,7 @@ async function run(): Promise<void> {
         .createOrUpdateFile({
           ...github.context.repo,
           path: "arXivSearches.json",
-          message: `Add arXiv paper confirmation judge '${judgeResult}' toward ${id}`,
+          message: `Add arXiv paper confirmation ${id}`,
           content: blob.toString("base64"),
           // @ts-ignore
           sha: contents.data.sha
