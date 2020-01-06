@@ -3,18 +3,33 @@ import * as github from "@actions/github";
 import { searchArXiv } from "./arXivSearch";
 import { ArXivStorage } from "./domain";
 import { tweet } from "./twitter";
+import * as WebhooksApi from "@octokit/webhooks";
 
 async function run(): Promise<void> {
-  // extract id
-  // const issueComment = github.context.payload.issue?.body;
+  //@ts-ignore
+  const issueCommentPayload: WebhooksApi.WebhookPayloadIssueComment =
+    github.context.payload;
 
-  // extract judge
-  const c = "[confirmed]";
-  const e = "[excluded]";
-  const payload = JSON.stringify(github.context.payload, undefined, 2);
-  console.log(payload);
-  // const comment: string = github.context.payload.;
-  // payload.comment.body;
+  // extract id
+  const idRegExp = /id: ([a-z\d.:\/]+)/;
+  const regResult = idRegExp.exec(issueCommentPayload.issue.body);
+  // regResult == null means the issue is not for article confirmation
+  if (regResult != null) {
+    const id = regResult[1];
+
+    // extract judge
+    const c = /\[confirmed\]/;
+    const e = /\[excluded\]/;
+
+    const isC = c.exec(issueCommentPayload.comment.body);
+    const isE = e.exec(issueCommentPayload.comment.body);
+
+    if (isC !== null) {
+      console.log("is [confirmed]");
+    } else if (isE !== null) {
+      console.log("is [excluded]");
+    }
+  }
 
   // fetch storage
   // const octokit = new github.GitHub(core.getInput("token"));
