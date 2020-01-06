@@ -1,0 +1,25 @@
+name: Check arXiv papers
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  confirm-or-exclude:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      # - name: Build Actions
+      #   run: |
+      #     npm ci
+      #     npm run-script build
+
+      - name: Confirm or Exclude
+        uses: ./.github/actions/ConfirmationAction
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          twi-cons-key: ${{ secrets.TWITTERCONSUMERKEY }}
+          twi-cons-secret: ${{ secrets.TWITTERCONSUMERSECRET }}
+          twi-token-key: ${{ secrets.TWITTERTOKENKEY }}
+          twi-token-secret: ${{ secrets.TWITTERTOKENSECRET }}

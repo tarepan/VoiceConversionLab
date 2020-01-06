@@ -4,7 +4,8 @@ module.exports = {
   mode: "development",
   target: "node",
   entry: {
-    PullShareAction: "./src/PullShareAction.ts"
+    PullShareAction: "./src/PullShareAction.ts",
+    ConfirmationAction: "./src/ConfirmationAction.ts"
   },
   devtool: "inline-source-map",
   module: {
