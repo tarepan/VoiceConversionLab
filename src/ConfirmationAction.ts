@@ -33,7 +33,7 @@ async function run(): Promise<void> {
           ...github.context.repo,
           // eslint-disable-next-line @typescript-eslint/camelcase
           issue_number: issueCommentPayload.issue.number,
-          body: `Thunk you very much for contribution!!\nYour judgement was refrected in arXivSearches.json, and will be used for VCLab's activity.\nThunk you so much!!`
+          body: `Thunk you very much for contribution!\nYour judgement is refrected in [arXivSearches.json](https://github.com/tarepan/VoiceConversionLab/blob/master/arXivSearches.json), and is going to be used for VCLab's activity.\nThunk you so much.`
         })
         .catch(err => core.setFailed(err));
       // close the issue
