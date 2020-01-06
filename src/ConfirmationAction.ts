@@ -37,6 +37,12 @@ async function run(): Promise<void> {
         })
         .catch(err => core.setFailed(err));
       // close the issue
+      octokit.issues.update({
+        ...github.context.repo,
+        // eslint-disable-next-line @typescript-eslint/camelcase
+        issue_number: issueCommentPayload.issue.number,
+        state: "closed"
+      });
 
       // update store
       //// fetch storage
@@ -68,29 +74,30 @@ async function run(): Promise<void> {
 
       if (isC !== null) {
         console.log("is [vclab::confirmed]");
-        // update store
+        // const content = `[VC paper]\n"${theNewPaper.title}"\narXiv: ${theNewPaper.id}`
+        const content = "test tweet for new feature";
 
         // tweet confirmed paper
-        //   await tweet(
-        //     `[VC paper]\n"${theNewPaper.title}"\narXiv: ${theNewPaper.id}`,
-        //     core.getInput("twi-cons-key"),
-        //     core.getInput("twi-cons-secret"),
-        //     core.getInput("twi-token-key"),
-        //     core.getInput("twi-token-secret")
-        //   )
-        //     .then(res => {
-        //       console.log(res.status);
-        //       return res.text();
-        //     })
-        //     .catch(err => {
-        //       core.setFailed(err);
-        //     });
-        //   console.log("tweet created.");
-        // }
+        await tweet(
+          content,
+          core.getInput("twi-cons-key"),
+          core.getInput("twi-cons-secret"),
+          core.getInput("twi-token-key"),
+          core.getInput("twi-token-secret")
+        )
+          .then(res => {
+            console.log(res.status);
+            return res.text();
+          })
+          .catch(err => {
+            core.setFailed(err);
+          });
+        console.log("tweet created.");
       } else if (isE !== null) {
         console.log("is [vclab::excluded]");
-        // update store
       }
+    } else {
+      console.log("non confirmation comment");
     }
   }
 }
