@@ -21,3 +21,20 @@ export async function searchArXiv(): Promise<ArXivSearchResults> {
     })
   );
 }
+
+export async function searchArXivByID(id: string): Promise<SearchedPaper> {
+  const res = await fetch(
+    `http://export.arxiv.org/api/query?id_list=${id}&max_results=1000`
+  );
+  const resTxt = await res.text();
+  const resJson = JSON.parse(
+    xml2json(resTxt, {
+      compact: true
+    })
+  );
+  return {
+    id: resJson.feed.entry.id._text,
+    title: resJson.feed.entry.title._text,
+    summary: resJson.feed.entry.summary._text
+  };
+}

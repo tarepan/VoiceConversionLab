@@ -1,6 +1,6 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
-import { searchArXiv } from "./arXivSearch";
+import { searchArXivByID } from "./arXivSearch";
 import { ArXivStorage } from "./domain";
 import { tweet } from "./twitter";
 import * as WebhooksApi from "@octokit/webhooks";
@@ -77,27 +77,32 @@ async function run(): Promise<void> {
 
       if (isC !== null) {
         console.log("is [vclab::confirmed]");
-        // const content = `[VC paper]\n"${theNewPaper.title}"\narXiv: ${theNewPaper.id}`
-        const paperTitle = "test";
-        const content = `[VC paper]\n"${paperTitle}"\narXiv: ${id}`;
-
-        // tweet confirmed paper
-        // working tested.
-        await tweet(
-          content,
-          core.getInput("twi-cons-key"),
-          core.getInput("twi-cons-secret"),
-          core.getInput("twi-token-key"),
-          core.getInput("twi-token-secret")
-        )
-          .then(res => {
-            console.log(res.status);
-            return res.text();
-          })
-          .catch(err => {
-            core.setFailed(err);
-          });
-        console.log("tweet created.");
+        const arXivIDRegResult = /http:\/\/arxiv.org\/abs\/([a-z.0-9]+)/.exec(
+          id
+        );
+        if (arXivIDRegResult !== null) {
+          const arXivID = arXivIDRegResult[1];
+          const paper = await searchArXivByID(arXivID);
+          const content = `[[VC paper]]\n"${paper.title}"\narXiv: ${id}`;
+          // tweet confirmed paper
+          await tweet(
+            content,
+            core.getInput("twi-cons-key"),
+            core.getInput("twi-cons-secret"),
+            core.getInput("twi-token-key"),
+            core.getInput("twi-token-secret")
+          )
+            .then(res => {
+              console.log(res.status);
+              return res.text();
+            })
+            .catch(err => {
+              core.setFailed(err);
+            });
+          console.log("tweet created.");
+        } else {
+          core.setFailed(`arXiv ID search failure for ${id}`);
+        }
       } else if (isE !== null) {
         console.log("is [vclab::excluded]");
       }
