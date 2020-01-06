@@ -63,7 +63,7 @@ async function run(): Promise<void> {
       const judgeResult = isC !== null ? "confirmed" : "excluded";
       const newStorage = updateArticleStatus(storage, id, judgeResult);
       //// commit storage update
-      const blob = Buffer.from(JSON.stringify(newStorage));
+      const blob = Buffer.from(JSON.stringify(newStorage, undefined, 2));
       await octokit.repos
         .createOrUpdateFile({
           ...github.context.repo,

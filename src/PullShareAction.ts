@@ -37,7 +37,7 @@ async function run(): Promise<void> {
     });
 
     // commit storage update
-    const blob = Buffer.from(JSON.stringify(storage));
+    const blob = Buffer.from(JSON.stringify(storage, undefined, 2));
     await octokit.repos
       .createOrUpdateFile({
         ...github.context.repo,
