@@ -1,4 +1,4 @@
-name: Check arXiv papers
+name: Confirm article
 on:
   issue_comment:
     types: [created]
@@ -10,10 +10,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
-      # - name: Build Actions
-      #   run: |
-      #     npm ci
-      #     npm run-script build
+      - name: Build Actions
+        run: |
+          npm ci
+          npm run-script build
 
       - name: Confirm or Exclude
         uses: ./.github/actions/ConfirmationAction
