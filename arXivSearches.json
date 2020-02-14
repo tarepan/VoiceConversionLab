@@ -434,5 +434,9 @@
   {
     "id": "http://arxiv.org/abs/2002.03808v1",
     "status": "confirmed"
+  },
+  {
+    "id": "http://arxiv.org/abs/1911.03934v2",
+    "status": "candidate"
   }
 ]
