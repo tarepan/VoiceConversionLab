@@ -9,8 +9,13 @@ export type ArXivSearchResults = SearchedPaper[];
 // points: this is merely arXiv search result storage (status is for refined search)
 export type candidate = "candidate";
 export type resolved = "confirmed" | "excluded";
+export type Identity = {
+  repository: "arXiv";
+  article: string;
+  version: string;
+};
 export type ArXivRecord = {
-  id: string;
+  id: Identity;
   status: candidate | resolved;
 };
 export type ArXivStorage = ArXivRecord[];

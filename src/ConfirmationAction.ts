@@ -4,7 +4,7 @@ import { searchArXivByID } from "./arXivSearch";
 import { ArXivStorage } from "./domain";
 import { tweet } from "./twitter";
 import * as WebhooksApi from "@octokit/webhooks";
-import { updateArticleStatus } from "./updateArticles";
+import { updateArticleStatus, arXivID2identity } from "./updateArticles";
 
 async function run(): Promise<void> {
   //@ts-ignore
@@ -16,7 +16,7 @@ async function run(): Promise<void> {
   const regResult = idRegExp.exec(issueCommentPayload.issue.body);
   // regResult == null means the issue is not for article confirmation
   if (regResult != null) {
-    const id = regResult[1];
+    const arXivID = regResult[1];
 
     // extract judge
     const c = /\[vclab::confirmed\]|\[confirmed\]|vclab::confirmed/;
@@ -25,7 +25,7 @@ async function run(): Promise<void> {
     const isC = c.exec(issueCommentPayload.comment.body);
     const isE = e.exec(issueCommentPayload.comment.body);
 
-    // make thunks toward contribution
+    // make thanks toward contribution
     if (isC !== null || isE !== null) {
       const octokit = new github.GitHub(core.getInput("token"));
       // reply thunks in comment
@@ -61,29 +61,35 @@ async function run(): Promise<void> {
       );
       //// update storage
       const judgeResult = isC !== null ? "confirmed" : "excluded";
-      const newStorage = updateArticleStatus(storage, id, judgeResult);
+      const identity = arXivID2identity(arXivID);
+      const newStorage = updateArticleStatus(
+        storage,
+        identity.article,
+        judgeResult
+      );
       //// commit storage update
       const blob = Buffer.from(JSON.stringify(newStorage, undefined, 2));
       await octokit.repos
         .createOrUpdateFile({
           ...github.context.repo,
           path: "arXivSearches.json",
-          message: `Add arXiv paper confirmation ${id}`,
+          message: `Add arXiv paper confirmation ${identity.repository}-${identity.article}`,
           content: blob.toString("base64"),
           // @ts-ignore
           sha: contents.data.sha
         })
         .catch(err => core.setFailed(err));
 
+      // Tweet if "confirmed" (== VC paper)
       if (isC !== null) {
         console.log("is [vclab::confirmed]");
         const arXivIDRegResult = /http:\/\/arxiv.org\/abs\/([a-z.0-9]+)/.exec(
-          id
+          arXivID
         );
         if (arXivIDRegResult !== null) {
-          const arXivID = arXivIDRegResult[1];
-          const paper = await searchArXivByID(arXivID);
-          const content = `[[VC paper]]\n"${paper.title}"\narXiv: ${id}`;
+          const arXivSearchID = arXivIDRegResult[1];
+          const paper = await searchArXivByID(arXivSearchID);
+          const content = `[[VC paper]]\n"${paper.title}"\narXiv: ${arXivSearchID}`;
           // tweet confirmed paper
           await tweet(
             content,
@@ -101,7 +107,7 @@ async function run(): Promise<void> {
             });
           console.log("tweet created.");
         } else {
-          core.setFailed(`arXiv ID search failure for ${id}`);
+          core.setFailed(`arXiv ID search failure for ${arXivID}`);
         }
       } else if (isE !== null) {
         console.log("is [vclab::excluded]");

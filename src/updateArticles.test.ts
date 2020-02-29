@@ -4,11 +4,11 @@ import { ArXivStorage } from "./domain";
 test("updateArticles", () => {
   const input: ArXivStorage = [
     {
-      id: "1",
+      id: { repository: "arXiv", article: "1", version: "1" },
       status: "candidate"
     },
     {
-      id: "2",
+      id: { repository: "arXiv", article: "2", version: "2" },
       status: "candidate"
     }
   ];
@@ -16,11 +16,11 @@ test("updateArticles", () => {
 
   const expected: ArXivStorage = [
     {
-      id: "1",
+      id: { repository: "arXiv", article: "1", version: "1" },
       status: "candidate"
     },
     {
-      id: "2",
+      id: { repository: "arXiv", article: "2", version: "2" },
       status: "confirmed"
     }
   ];
