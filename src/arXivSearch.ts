@@ -38,3 +38,11 @@ export async function searchArXivByID(id: string): Promise<SearchedPaper> {
     summary: resJson.feed.entry.summary._text
   };
 }
+
+if (require.main === module) {
+  (async () => {
+    const res = await searchArXivByID("1012.1416v1");
+    const x = 1;
+  })();
+  
+}
