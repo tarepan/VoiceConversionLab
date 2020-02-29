@@ -19,8 +19,8 @@ async function run(): Promise<void> {
     const id = regResult[1];
 
     // extract judge
-    const c = /\[vclab::confirmed\]|\[confirmed\]/;
-    const e = /\[vclab::excluded\]|\[excluded\]/;
+    const c = /\[vclab::confirmed\]|\[confirmed\]|vclab::confirmed/;
+    const e = /\[vclab::excluded\]|\[excluded\]|vclab::excluded/;
 
     const isC = c.exec(issueCommentPayload.comment.body);
     const isE = e.exec(issueCommentPayload.comment.body);
