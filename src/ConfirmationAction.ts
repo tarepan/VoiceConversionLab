@@ -86,7 +86,7 @@ async function run(): Promise<void> {
         const identity = arXivID2identity(arXivID);
         const arXivSearchID = `${identity.article}v${identity.version}`;
         const paper = await searchArXivByID(arXivSearchID);
-        const content = `[[VC paper]]\n"${paper.title}"\narXiv: arxiv.org/abs/${arXivSearchID}`;
+        const content = `[[VC paper]]\n"${paper.title}"\narXiv: arxiv.org/abs/${identity.article}`;
         // tweet confirmed paper
         await tweet(
           content,
