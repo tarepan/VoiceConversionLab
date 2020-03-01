@@ -83,32 +83,26 @@ async function run(): Promise<void> {
       // Tweet if "confirmed" (== VC paper)
       if (isC !== null) {
         console.log("is [vclab::confirmed]");
-        const arXivIDRegResult = /http:\/\/arxiv.org\/abs\/([a-z.0-9]+)/.exec(
-          arXivID
-        );
-        if (arXivIDRegResult !== null) {
-          const arXivSearchID = arXivIDRegResult[1];
-          const paper = await searchArXivByID(arXivSearchID);
-          const content = `[[VC paper]]\n"${paper.title}"\narXiv: ${arXivSearchID}`;
-          // tweet confirmed paper
-          await tweet(
-            content,
-            core.getInput("twi-cons-key"),
-            core.getInput("twi-cons-secret"),
-            core.getInput("twi-token-key"),
-            core.getInput("twi-token-secret")
-          )
-            .then(res => {
-              console.log(res.status);
-              return res.text();
-            })
-            .catch(err => {
-              core.setFailed(err);
-            });
-          console.log("tweet created.");
-        } else {
-          core.setFailed(`arXiv ID search failure for ${arXivID}`);
-        }
+        const identity = arXivID2identity(arXivID);
+        const arXivSearchID = `${identity.article}v${identity.version}`;
+        const paper = await searchArXivByID(arXivSearchID);
+        const content = `[[VC paper]]\n"${paper.title}"\narXiv: arxiv.org/abs/${arXivSearchID}`;
+        // tweet confirmed paper
+        await tweet(
+          content,
+          core.getInput("twi-cons-key"),
+          core.getInput("twi-cons-secret"),
+          core.getInput("twi-token-key"),
+          core.getInput("twi-token-secret")
+        )
+          .then(res => {
+            console.log(res.status);
+            return res.text();
+          })
+          .catch(err => {
+            core.setFailed(err);
+          });
+        console.log("tweet created.");
       } else if (isE !== null) {
         console.log("is [vclab::excluded]");
       }
