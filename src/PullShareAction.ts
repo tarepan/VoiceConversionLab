@@ -111,7 +111,7 @@ async function run(): Promise<void> {
 
     // tweet candidate info
     await tweet(
-      `[new VC paper candidate]\n"${theNewPaper.title}"\narXiv: ${theNewPaper.id}`,
+      `[new VC paper candidate]\n"${theNewPaper.title}"\narXiv: arxiv.org/abs/${newRecord.id.article}`,
       core.getInput("twi-cons-key"),
       core.getInput("twi-cons-secret"),
       core.getInput("twi-token-key"),
@@ -161,7 +161,7 @@ async function run(): Promise<void> {
 
     // tweet candidate info
     await tweet(
-      `[paper version up]\n"${updatedPaper.title}"\narXiv: ${updatedPaper.id}`,
+      `[paper version up]\n"${updatedPaper.title}"\narXiv: arxiv.org/abs/${paperID.article}`,
       core.getInput("twi-cons-key"),
       core.getInput("twi-cons-secret"),
       core.getInput("twi-token-key"),
