@@ -862,5 +862,13 @@
       "version": "1"
     },
     "status": "candidate"
+  },
+  {
+    "id": {
+      "repository": "arXiv",
+      "article": "2004.07370",
+      "version": "1"
+    },
+    "status": "candidate"
   }
 ]
