@@ -982,5 +982,13 @@
       "version": "1"
     },
     "status": "confirmed"
+  },
+  {
+    "id": {
+      "repository": "arXiv",
+      "article": "2005.13770",
+      "version": "1"
+    },
+    "status": "candidate"
   }
 ]
