@@ -998,5 +998,13 @@
       "version": "1"
     },
     "status": "candidate"
+  },
+  {
+    "id": {
+      "repository": "arXiv",
+      "article": "2006.04154",
+      "version": "1"
+    },
+    "status": "candidate"
   }
 ]
