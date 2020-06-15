@@ -1006,5 +1006,13 @@
       "version": "1"
     },
     "status": "confirmed"
+  },
+  {
+    "id": {
+      "repository": "arXiv",
+      "article": "2006.06937",
+      "version": "1"
+    },
+    "status": "candidate"
   }
 ]
