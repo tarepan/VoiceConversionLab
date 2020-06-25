@@ -1,0 +1,20 @@
+{
+  "name": "VoiceConversionLab",
+  "dockerFile": "Dockerfile",
+  //   "mounts": [
+  //     "source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind"
+  //   ],
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+  "extensions": [
+    "ms-azuretools.vscode-docker",
+    "orta.vscode-jest",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "visualstudioexptteam.vscodeintellicode",
+    "mhutchie.git-graph"
+  ],
+  "postCreateCommand": "npm install"
+  // "remoteUser": "node"
+}
