@@ -1022,5 +1022,13 @@
       "version": "1"
     },
     "status": "excluded"
+  },
+  {
+    "id": {
+      "repository": "arXiv",
+      "article": "2008.02371",
+      "version": "1"
+    },
+    "status": "candidate"
   }
 ]
