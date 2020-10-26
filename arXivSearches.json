@@ -1270,5 +1270,13 @@
       "version": "1"
     },
     "status": "candidate"
+  },
+  {
+    "id": {
+      "repository": "arXiv",
+      "article": "2010.12231",
+      "version": "1"
+    },
+    "status": "candidate"
   }
 ]
