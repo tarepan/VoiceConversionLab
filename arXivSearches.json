@@ -1334,5 +1334,13 @@
       "version": "1"
     },
     "status": "candidate"
+  },
+  {
+    "id": {
+      "repository": "arXiv",
+      "article": "2011.00316",
+      "version": "1"
+    },
+    "status": "candidate"
   }
 ]
