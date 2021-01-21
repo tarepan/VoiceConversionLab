@@ -52,7 +52,7 @@
     "@actions/core": "^1.2.6",
     "@actions/github": "^2.2.0",
     "@octokit/webhooks": "^7.6.4",
-    "immer": "^5.3.6",
+    "immer": "^8.0.1",
     "node-fetch": "^2.6.1",
     "oauth-1.0a": "^2.2.6",
     "strict-uri-encode": "^2.0.0",
