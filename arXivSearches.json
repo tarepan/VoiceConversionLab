@@ -1982,5 +1982,13 @@
       "version": "1"
     },
     "status": "candidate"
+  },
+  {
+    "id": {
+      "repository": "arXiv",
+      "article": "2110.06434",
+      "version": "1"
+    },
+    "status": "candidate"
   }
 ]
