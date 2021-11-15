@@ -2102,5 +2102,13 @@
       "version": "1"
     },
     "status": "candidate"
+  },
+  {
+    "id": {
+      "repository": "arXiv",
+      "article": "2111.06601",
+      "version": "1"
+    },
+    "status": "candidate"
   }
 ]
