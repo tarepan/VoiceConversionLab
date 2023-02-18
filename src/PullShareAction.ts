@@ -65,8 +65,8 @@ async function run(): Promise<void> {
   const searchResults = await searchArXiv();
 
   // fetch storage
-  const octokit = new github.GitHub(core.getInput("token"));
-  const contents = await octokit.repos.getContents({
+  const octokit = github.getOctokit(core.getInput("token"));
+  const contents = await octokit.rest.repos.getContent({
     ...github.context.repo,
     path: "arXivSearches.json"
   });
@@ -87,8 +87,8 @@ async function run(): Promise<void> {
     storage.push(newPaperCand[1]);
     // commit storage update
     const blob = Buffer.from(JSON.stringify(storage, undefined, 2));
-    await octokit.repos
-      .createOrUpdateFile({
+    await octokit.rest.repos
+      .createOrUpdateFileContents({
         ...github.context.repo,
         path: "arXivSearches.json",
         message: `Add new arXiv search result ${newRecord.id.article}`,
@@ -100,7 +100,7 @@ async function run(): Promise<void> {
     console.log("storage updated.");
 
     // open candidate check issue
-    await octokit.issues
+    await octokit.rest.issues
       .create({
         ...github.context.repo,
         title: `'Voice Conversion' paper candidate ${newRecord.id.article}`,
@@ -145,8 +145,8 @@ async function run(): Promise<void> {
 
     // commit storage update
     const blob = Buffer.from(JSON.stringify(storage, undefined, 2));
-    await octokit.repos
-      .createOrUpdateFile({
+    await octokit.rest.repos
+      .createOrUpdateFileContents({
         ...github.context.repo,
         path: "arXivSearches.json",
         message: `Update arXiv search result ${paperID.article}@${paperID.version}`,

@@ -27,9 +27,9 @@ async function run(): Promise<void> {
 
     // make thanks toward contribution
     if (isC !== null || isE !== null) {
-      const octokit = new github.GitHub(core.getInput("token"));
+      const octokit = github.getOctokit(core.getInput("token"));
       // reply thunks in comment
-      await octokit.issues
+      await octokit.rest.issues
         .createComment({
           ...github.context.repo,
           // eslint-disable-next-line @typescript-eslint/camelcase
@@ -38,7 +38,7 @@ async function run(): Promise<void> {
         })
         .catch(err => core.setFailed(err));
       // close the issue
-      octokit.issues.update({
+      octokit.rest.issues.update({
         ...github.context.repo,
         // eslint-disable-next-line @typescript-eslint/camelcase
         issue_number: issueCommentPayload.issue.number,
@@ -47,7 +47,7 @@ async function run(): Promise<void> {
 
       // update store
       //// fetch storage
-      const contents = await octokit.repos.getContents({
+      const contents = await octokit.rest.repos.getContent({
         ...github.context.repo,
         path: "arXivSearches.json"
       });
@@ -69,8 +69,8 @@ async function run(): Promise<void> {
       );
       //// commit storage update
       const blob = Buffer.from(JSON.stringify(newStorage, undefined, 2));
-      await octokit.repos
-        .createOrUpdateFile({
+      await octokit.rest.repos
+        .createOrUpdateFileContents({
           ...github.context.repo,
           path: "arXivSearches.json",
           message: `Add arXiv paper confirmation ${identity.repository}-${identity.article}`,
