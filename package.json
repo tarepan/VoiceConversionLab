@@ -41,11 +41,11 @@
     "npm-check-updates": "^16.7.5",
     "prettier": "^2.8.4",
     "ts-jest": "^29.0.5",
-    "ts-loader": "^7.0.5",
+    "ts-loader": "^9.4.2",
     "typescript": "^4.9.5",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.12",
-    "webpack-dev-server": "^3.11.0"
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1"
   },
   "dependencies": {
     "@actions/core": "^1.10.0",
