@@ -6,7 +6,7 @@ import {
   ArXivSearchResults,
   ArXivRecord,
   SearchedPaper,
-  Identity
+  Identity,
 } from "./domain";
 import { tweet } from "./twitter";
 import { arXivID2identity } from "./updateArticles";
@@ -16,9 +16,9 @@ function findNewPaper(
   storage: ArXivStorage
 ): [SearchedPaper, ArXivRecord] | undefined {
   // find non-match (==new) arXivPaper (version update is excluded)
-  const newPapers = searchResults.filter(paper => {
+  const newPapers = searchResults.filter((paper) => {
     const articleID = arXivID2identity(paper.id).article;
-    return storage.every(record => record.id.article !== articleID);
+    return storage.every((record) => record.id.article !== articleID);
   });
   if (newPapers.length === 0) {
     return undefined;
@@ -29,8 +29,8 @@ function findNewPaper(
       theNewPaper,
       {
         id: identity,
-        status: "candidate"
-      }
+        status: "candidate",
+      },
     ];
   }
 }
@@ -43,11 +43,11 @@ function findUpdatedPaper(
   storage: ArXivStorage
 ): [SearchedPaper, Identity] | undefined {
   //
-  const updatedPaperCand = searchResults.find(paper => {
+  const updatedPaperCand = searchResults.find((paper) => {
     const paperID = arXivID2identity(paper.id);
     // There is a record which match the articleID but not match version in storage
     return storage.some(
-      record =>
+      (record) =>
         record.id.article === paperID.article &&
         record.id.version !== paperID.version
     );
@@ -68,7 +68,7 @@ async function run(): Promise<void> {
   const octokit = github.getOctokit(core.getInput("token"));
   const contents = await octokit.rest.repos.getContent({
     ...github.context.repo,
-    path: "arXivSearches.json"
+    path: "arXivSearches.json",
   });
   const storage: ArXivStorage = JSON.parse(
     Buffer.from(
@@ -94,9 +94,9 @@ async function run(): Promise<void> {
         message: `Add new arXiv search result ${newRecord.id.article}`,
         content: blob.toString("base64"),
         // @ts-ignore
-        sha: contents.data.sha
+        sha: contents.data.sha,
       })
-      .catch(err => core.setFailed(err));
+      .catch((err) => core.setFailed(err));
     console.log("storage updated.");
 
     // open candidate check issue
@@ -104,9 +104,9 @@ async function run(): Promise<void> {
       .create({
         ...github.context.repo,
         title: `'Voice Conversion' paper candidate ${newRecord.id.article}`,
-        body: `Please check whether this paper is about 'Voice Conversion' or not.\n## article info.\n- title: **${theNewPaper.title}**\n- summary: ${theNewPaper.summary}\n- id: ${theNewPaper.id}\n## judge\nWrite [vclab::confirmed] or [vclab::excluded] in comment.`
+        body: `Please check whether this paper is about 'Voice Conversion' or not.\n## article info.\n- title: **${theNewPaper.title}**\n- summary: ${theNewPaper.summary}\n- id: ${theNewPaper.id}\n## judge\nWrite [vclab::confirmed] or [vclab::excluded] in comment.`,
       })
-      .catch(err => core.setFailed(err));
+      .catch((err) => core.setFailed(err));
     console.log("issue created.");
 
     // tweet candidate info
@@ -117,11 +117,11 @@ async function run(): Promise<void> {
       core.getInput("twi-token-key"),
       core.getInput("twi-token-secret")
     )
-      .then(res => {
+      .then((res) => {
         console.log(res.status);
         return res.text();
       })
-      .catch(err => {
+      .catch((err) => {
         core.setFailed(err);
       });
     console.log("tweet created.");
@@ -135,7 +135,7 @@ async function run(): Promise<void> {
     const paperID = updatedPaperCand[1];
     // storage update (version only update)
     const indexInStorage = storage.findIndex(
-      record => record.id.article === paperID.article
+      (record) => record.id.article === paperID.article
     );
     if (indexInStorage === -1) {
       throw new Error("this should exist");
@@ -152,9 +152,9 @@ async function run(): Promise<void> {
         message: `Update arXiv search result ${paperID.article}@${paperID.version}`,
         content: blob.toString("base64"),
         // @ts-ignore
-        sha: contents.data.sha
+        sha: contents.data.sha,
       })
-      .catch(err => core.setFailed(err));
+      .catch((err) => core.setFailed(err));
     console.log("storage updated (version update)");
 
     // do NOT open issue because version up do not change "VC paper or not"
@@ -167,11 +167,11 @@ async function run(): Promise<void> {
       core.getInput("twi-token-key"),
       core.getInput("twi-token-secret")
     )
-      .then(res => {
+      .then((res) => {
         console.log(res.status);
         return res.text();
       })
-      .catch(err => {
+      .catch((err) => {
         core.setFailed(err);
       });
     console.log("tweet created.");

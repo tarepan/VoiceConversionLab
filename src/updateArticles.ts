@@ -7,7 +7,7 @@ export function arXivID2identity(arXivID: string): Identity {
     return {
       repository: "arXiv",
       article: result[1],
-      version: result[2]
+      version: result[2],
     };
   } else {
     throw new Error("arXivID parse error");
@@ -19,9 +19,9 @@ export function updateArticleStatus(
   articleID: string,
   status: resolved
 ): ArXivStorage {
-  return produce(storage, draft => {
+  return produce(storage, (draft) => {
     // find index
-    const index = draft.findIndex(paper => paper.id.article === articleID);
+    const index = draft.findIndex((paper) => paper.id.article === articleID);
     draft[index].status = status;
   });
 }

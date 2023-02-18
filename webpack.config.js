@@ -5,7 +5,7 @@ module.exports = {
   target: "node",
   entry: {
     PullShareAction: "./src/PullShareAction.ts",
-    ConfirmationAction: "./src/ConfirmationAction.ts"
+    ConfirmationAction: "./src/ConfirmationAction.ts",
   },
   devtool: "inline-source-map",
   module: {
@@ -13,9 +13,9 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: "ts-loader",
-        exclude: /node_modules/
-      }
-    ]
+        exclude: /node_modules/,
+      },
+    ],
   },
   resolve: {
     extensions: [".ts", ".js", ".tsx"],
@@ -23,15 +23,15 @@ module.exports = {
       "universal-user-agent": path.resolve(
         __dirname,
         "node_modules/universal-user-agent/dist-node/index.js"
-      )
-    }
+      ),
+    },
   },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "[name].js"
+    filename: "[name].js",
   },
   devServer: {
     contentBase: path.join(__dirname, "dist"),
-    port: 8000
-  }
+    port: 8000,
+  },
 };

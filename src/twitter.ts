@@ -14,13 +14,13 @@ export async function tweet(
     url: `https://api.twitter.com/1.1/statuses/update.json?status=${strictUriEncode(
       msg
     )}`,
-    method: "POST"
+    method: "POST",
   };
 
   const oauth = new OAuth({
     consumer: {
       key: consumerKey,
-      secret: consumerSecret
+      secret: consumerSecret,
     },
     // eslint-disable-next-line @typescript-eslint/camelcase
     signature_method: "HMAC-SHA1",
@@ -30,7 +30,7 @@ export async function tweet(
         .createHmac("sha1", key)
         .update(base_string)
         .digest("base64");
-    }
+    },
   });
 
   return fetch(requestData.url, {
@@ -39,10 +39,10 @@ export async function tweet(
       ...oauth.toHeader(
         oauth.authorize(requestData, {
           key: tokenKey,
-          secret: tokenSecret
+          secret: tokenSecret,
         })
-      )
-    }
+      ),
+    },
   });
 }
 

@@ -34,22 +34,22 @@ async function run(): Promise<void> {
           ...github.context.repo,
           // eslint-disable-next-line @typescript-eslint/camelcase
           issue_number: issueCommentPayload.issue.number,
-          body: `Thunk you very much for contribution!\nYour judgement is refrected in [arXivSearches.json](https://github.com/tarepan/VoiceConversionLab/blob/master/arXivSearches.json), and is going to be used for VCLab's activity.\nThunk you so much.`
+          body: `Thunk you very much for contribution!\nYour judgement is refrected in [arXivSearches.json](https://github.com/tarepan/VoiceConversionLab/blob/master/arXivSearches.json), and is going to be used for VCLab's activity.\nThunk you so much.`,
         })
-        .catch(err => core.setFailed(err));
+        .catch((err) => core.setFailed(err));
       // close the issue
       octokit.rest.issues.update({
         ...github.context.repo,
         // eslint-disable-next-line @typescript-eslint/camelcase
         issue_number: issueCommentPayload.issue.number,
-        state: "closed"
+        state: "closed",
       });
 
       // update store
       //// fetch storage
       const contents = await octokit.rest.repos.getContent({
         ...github.context.repo,
-        path: "arXivSearches.json"
+        path: "arXivSearches.json",
       });
       const storage: ArXivStorage = JSON.parse(
         Buffer.from(
@@ -76,9 +76,9 @@ async function run(): Promise<void> {
           message: `Add arXiv paper confirmation ${identity.repository}-${identity.article}`,
           content: blob.toString("base64"),
           // @ts-ignore
-          sha: contents.data.sha
+          sha: contents.data.sha,
         })
-        .catch(err => core.setFailed(err));
+        .catch((err) => core.setFailed(err));
 
       // Tweet if "confirmed" (== VC paper)
       if (isC !== null) {
@@ -95,11 +95,11 @@ async function run(): Promise<void> {
           core.getInput("twi-token-key"),
           core.getInput("twi-token-secret")
         )
-          .then(res => {
+          .then((res) => {
             console.log(res.status);
             return res.text();
           })
-          .catch(err => {
+          .catch((err) => {
             core.setFailed(err);
           });
         console.log("tweet created.");

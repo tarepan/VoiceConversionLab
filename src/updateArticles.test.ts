@@ -5,24 +5,24 @@ test("updateArticles", () => {
   const input: ArXivStorage = [
     {
       id: { repository: "arXiv", article: "1", version: "1" },
-      status: "candidate"
+      status: "candidate",
     },
     {
       id: { repository: "arXiv", article: "2", version: "2" },
-      status: "candidate"
-    }
+      status: "candidate",
+    },
   ];
   // replace based on index
 
   const expected: ArXivStorage = [
     {
       id: { repository: "arXiv", article: "1", version: "1" },
-      status: "candidate"
+      status: "candidate",
     },
     {
       id: { repository: "arXiv", article: "2", version: "2" },
-      status: "confirmed"
-    }
+      status: "confirmed",
+    },
   ];
   expect(updateArticleStatus(input, "2", "confirmed")).toStrictEqual(expected);
 });
