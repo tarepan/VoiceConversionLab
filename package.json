@@ -36,7 +36,7 @@
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-jest": "^23.17.1",
     "eslint-plugin-prettier": "^3.1.4",
-    "husky": "^4.2.5",
+    "husky": "^4.3.8",
     "jest": "^29.4.3",
     "npm-check-updates": "^16.7.5",
     "prettier": "^2.8.4",
