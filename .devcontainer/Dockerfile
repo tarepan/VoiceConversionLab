@@ -1,5 +1,5 @@
 # Node version should match with GitHub Actions workflows
-FROM node:12
+FROM node:16
 
 # This Dockerfile adds a non-root user with sudo access. Use the "remoteUser"
 # property in devcontainer.json to use it. On Linux, the container user's GID/UIDs
