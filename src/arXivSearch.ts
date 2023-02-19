@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 import { xml2json } from "xml-js";
-import type { ArXivSearchResults, SearchedPaper } from "./domain";
+import type { ArXivSearchResults, SearchedPaper } from "./domain.js";
 
 /**
  * Remove new lines and long white spaces after them.
@@ -47,7 +47,9 @@ export async function searchArXivByID(id: string): Promise<SearchedPaper> {
   };
 }
 
-if (require.main === module) {
+
+import * as url from 'node:url';
+if (import.meta.url.startsWith('file:') && process.argv[1] === url.fileURLToPath(import.meta.url)) {
   (async () => {
     const res = await searchArXivByID("2302.08296v1");
     console.log(res)

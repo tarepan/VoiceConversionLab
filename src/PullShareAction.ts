@@ -1,15 +1,15 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
-import { searchArXiv } from "./arXivSearch";
+import { searchArXiv } from "./arXivSearch.js";
 import type {
   ArXivStorage,
   ArXivSearchResults,
   ArXivRecord,
   SearchedPaper,
   Identity,
-} from "./domain";
-import { tweet } from "./twitter";
-import { arXivID2identity } from "./updateArticles";
+} from "./domain.js";
+import { tweet } from "./twitter.js";
+import { arXivID2identity } from "./updateArticles.js";
 
 function findNewPaper(
   searchResults: ArXivSearchResults,

@@ -1,5 +1,5 @@
-import { updateArticleStatus } from "./updateArticles";
-import type { ArXivStorage } from "./domain";
+import { updateArticleStatus } from "./updateArticles.js";
+import type { ArXivStorage } from "./domain.js";
 
 test("updateArticles", () => {
   const input: ArXivStorage = [

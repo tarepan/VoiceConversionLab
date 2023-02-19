@@ -1,6 +1,8 @@
-const path = require("path");
+import path from "node:path";
+import url from "node:url";
+ const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
-module.exports = {
+export default {
   mode: "development",
   target: "node",
   entry: {
@@ -19,6 +21,9 @@ module.exports = {
   },
   resolve: {
     extensions: [".ts", ".js", ".tsx"],
+    extensionAlias: {
+      '.js': ['.ts', '.js'],
+    },
     alias: {
       "universal-user-agent": path.resolve(
         __dirname,

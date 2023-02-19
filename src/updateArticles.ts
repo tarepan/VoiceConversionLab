@@ -1,4 +1,4 @@
-import type { ArXivStorage, resolved, Identity } from "./domain";
+import type { ArXivStorage, resolved, Identity } from "./domain.js";
 import { produce } from "immer";
 
 export function arXivID2identity(arXivID: string): Identity {
