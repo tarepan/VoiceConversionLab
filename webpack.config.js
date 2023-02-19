@@ -4,7 +4,7 @@ import url from "node:url";
 
 export default {
   mode: "development",
-  target: "node",
+  target: "node16",
   entry: {
     PullShareAction: "./src/PullShareAction.ts",
     ConfirmationAction: "./src/ConfirmationAction.ts",
@@ -31,9 +31,15 @@ export default {
       ),
     },
   },
+  experiments: {
+    outputModule: true, // Linked with `output.library.type = 'module'`
+  },
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "[name].js",
+    library: {
+      type: 'module',
+    },
   },
   devServer: {
     contentBase: path.join(__dirname, "dist"),
