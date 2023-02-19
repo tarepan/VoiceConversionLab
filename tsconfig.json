@@ -2,16 +2,21 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "sourceMap": true,
-    "noImplicitAny": true,
     "module": "commonjs",
-    "moduleResolution": "node",
     "target": "ES2021",
     "strict": true,
-    "strictFunctionTypes": false /* Enable strict checking of function types. */,
-    "strictPropertyInitialization": false /* Enable strict checking of property initialization in classes. */,
     "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */,
-    "allowJs": true,
-    "experimentalDecorators": true,
-    "jsx": "react"
+    "forceConsistentCasingInFileNames": true,
+    // Strict type checkings
+    "allowUnusedLabels": false,
+    "exactOptionalPropertyTypes": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    "importsNotUsedAsValues": "error",
+    "checkJs": true
+    // Not strict: "allowUnreachableCode", "noUnusedLocals", "noUnusedParameters",
   }
 }

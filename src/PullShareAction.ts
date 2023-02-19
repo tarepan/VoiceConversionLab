@@ -1,7 +1,7 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
 import { searchArXiv } from "./arXivSearch";
-import {
+import type {
   ArXivStorage,
   ArXivSearchResults,
   ArXivRecord,
@@ -24,6 +24,7 @@ function findNewPaper(
     return undefined;
   } else {
     const theNewPaper = newPapers[0];
+    if (theNewPaper === undefined) throw new Error("Must correct, for Type checking");
     const identity = arXivID2identity(theNewPaper.id);
     return [
       theNewPaper,
@@ -61,6 +62,10 @@ function findUpdatedPaper(
 }
 
 async function run(): Promise<void> {
+  /*
+  Run
+  */
+
   // fetch search result
   const searchResults = await searchArXiv();
 
@@ -79,27 +84,36 @@ async function run(): Promise<void> {
     ).toString()
   );
 
+  /*Check new VC paper candidate:
+    - Search new paper
+    - Update storage
+    - Commit to database
+    - Open review issue
+    - Tweet new candidate
+  */
+  // Search new paper
   const newPaperCand = findNewPaper(searchResults, storage);
   if (newPaperCand !== undefined) {
+    // Update storage - updated 
     const theNewPaper = newPaperCand[0];
     const newRecord = newPaperCand[1];
-    // storage update
     storage.push(newPaperCand[1]);
-    // commit storage update
-    const blob = Buffer.from(JSON.stringify(storage, undefined, 2));
+
+    // Commit to database - commit updated storage to the VCLab repository on GitHub
+    const storageBlob = Buffer.from(JSON.stringify(storage, undefined, 2));
     await octokit.rest.repos
       .createOrUpdateFileContents({
         ...github.context.repo,
         path: "arXivSearches.json",
         message: `Add new arXiv search result ${newRecord.id.article}`,
-        content: blob.toString("base64"),
+        content: storageBlob.toString("base64"),
         // @ts-ignore
         sha: contents.data.sha,
       })
       .catch((err) => core.setFailed(err));
     console.log("storage updated.");
 
-    // open candidate check issue
+    // Open review issue - open candidate check issue in VCLab repository
     await octokit.rest.issues
       .create({
         ...github.context.repo,
@@ -109,7 +123,7 @@ async function run(): Promise<void> {
       .catch((err) => core.setFailed(err));
     console.log("issue created.");
 
-    // tweet candidate info
+    // Tweet new candidate - tweet candidate info on Twitter@VoiceConversion
     await tweet(
       `[new VC paper candidate]\n"${theNewPaper.title}"\narXiv: arxiv.org/abs/${newRecord.id.article}`,
       core.getInput("twi-cons-key"),
@@ -125,6 +139,8 @@ async function run(): Promise<void> {
         core.setFailed(err);
       });
     console.log("tweet created.");
+
+    // Finish this action
     return;
   }
 
@@ -141,6 +157,9 @@ async function run(): Promise<void> {
       throw new Error("this should exist");
     }
     const record = storage[indexInStorage];
+    if(record === undefined){
+      throw new Error("this should exist");
+    }
     record.id.version = paperID.version;
 
     // commit storage update

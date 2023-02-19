@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 import { xml2json } from "xml-js";
-import { ArXivSearchResults, SearchedPaper } from "./domain";
+import type { ArXivSearchResults, SearchedPaper } from "./domain";
 
 /**
  * Remove new lines and long white spaces after them.

@@ -1,9 +1,9 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
 import { searchArXivByID } from "./arXivSearch";
-import { ArXivStorage } from "./domain";
+import type { ArXivStorage } from "./domain";
 import { tweet } from "./twitter";
-import * as WebhooksApi from "@octokit/webhooks";
+import type * as WebhooksApi from "@octokit/webhooks";
 import { updateArticleStatus, arXivID2identity } from "./updateArticles";
 
 async function run(): Promise<void> {
@@ -17,6 +17,7 @@ async function run(): Promise<void> {
   // regResult == null means the issue is not for article confirmation
   if (regResult != null) {
     const arXivID = regResult[1];
+    if(arXivID === undefined) throw new Error("Must correct, for Type checking");
 
     // extract judge
     const c = /\[vclab::confirmed\]|\[confirmed\]|vclab::confirmed/;
