@@ -2,10 +2,10 @@
   "compilerOptions": {
     "outDir": "./dist/",
     "sourceMap": true,
-    "module": "commonjs",
+    "module": "node16",
     "target": "ES2021",
     "strict": true,
-    "esModuleInterop": true /* Enables emit interoperability between CommonJS and ES Modules via creation of namespace objects for all imports. Implies 'allowSyntheticDefaultImports'. */,
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     // Strict type checkings
     "allowUnusedLabels": false,

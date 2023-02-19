@@ -1,10 +1,10 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
-import { searchArXivByID } from "./arXivSearch";
-import type { ArXivStorage } from "./domain";
-import { tweet } from "./twitter";
+import { searchArXivByID } from "./arXivSearch.js";
+import type { ArXivStorage } from "./domain.js";
+import { tweet } from "./twitter.js";
 import type * as WebhooksApi from "@octokit/webhooks";
-import { updateArticleStatus, arXivID2identity } from "./updateArticles";
+import { updateArticleStatus, arXivID2identity } from "./updateArticles.js";
 
 async function run(): Promise<void> {
   //@ts-ignore
