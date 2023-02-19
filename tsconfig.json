@@ -5,7 +5,7 @@
     "noImplicitAny": true,
     "module": "commonjs",
     "moduleResolution": "node",
-    "target": "ES2019",
+    "target": "ES2021",
     "strict": true,
     "strictFunctionTypes": false /* Enable strict checking of function types. */,
     "strictPropertyInitialization": false /* Enable strict checking of property initialization in classes. */,
