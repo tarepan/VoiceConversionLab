@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/tarepan/VoiceConversionLab#readme",
   "devDependencies": {
+    "@tsconfig/node16-strictest-esm": "^1.0.3",
     "@types/jest": "^29.4.0",
     "@types/node": "^16.18.12",
     "@types/strict-uri-encode": "^2.0.0",
