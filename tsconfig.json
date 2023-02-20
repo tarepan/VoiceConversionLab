@@ -1,22 +1,14 @@
 {
+  "extends": "@tsconfig/node16-strictest-esm/tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist/",
     "sourceMap": true,
+    // ESModules
     "module": "node16",
-    "target": "ES2021",
-    "strict": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    // Strict type checkings
-    "allowUnusedLabels": false,
-    "exactOptionalPropertyTypes": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitOverride": true,
-    "noImplicitReturns": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noUncheckedIndexedAccess": true,
-    "importsNotUsedAsValues": "error",
-    "checkJs": true
-    // Not strict: "allowUnreachableCode", "noUnusedLocals", "noUnusedParameters",
+    "moduleResolution": "node16",
+    // Loose type checking
+    "allowUnreachableCode": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
   }
 }
