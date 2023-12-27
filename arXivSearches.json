@@ -3862,5 +3862,13 @@
       "version": "1"
     },
     "status": "candidate"
+  },
+  {
+    "id": {
+      "repository": "arXiv",
+      "article": "2312.15499",
+      "version": "1"
+    },
+    "status": "candidate"
   }
 ]
