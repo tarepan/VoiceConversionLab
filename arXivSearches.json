@@ -4462,5 +4462,13 @@
       "version": "1"
     },
     "status": "candidate"
+  },
+  {
+    "id": {
+      "repository": "arXiv",
+      "article": "2409.00387",
+      "version": "1"
+    },
+    "status": "candidate"
   }
 ]
