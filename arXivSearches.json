@@ -4774,5 +4774,13 @@
       "version": "2"
     },
     "status": "candidate"
+  },
+  {
+    "id": {
+      "repository": "arXiv",
+      "article": "2412.08312",
+      "version": "1"
+    },
+    "status": "candidate"
   }
 ]
