@@ -5398,5 +5398,13 @@
       "version": "1"
     },
     "status": "candidate"
+  },
+  {
+    "id": {
+      "repository": "arXiv",
+      "article": "2507.09310",
+      "version": "1"
+    },
+    "status": "candidate"
   }
 ]
