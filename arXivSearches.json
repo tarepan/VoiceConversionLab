@@ -5534,5 +5534,13 @@
       "version": "1"
     },
     "status": "candidate"
+  },
+  {
+    "id": {
+      "repository": "arXiv",
+      "article": "2509.13068",
+      "version": "1"
+    },
+    "status": "candidate"
   }
 ]
