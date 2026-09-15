@@ -6406,5 +6406,13 @@
       "version": "1"
     },
     "status": "candidate"
+  },
+  {
+    "id": {
+      "repository": "arXiv",
+      "article": "2609.13842",
+      "version": "1"
+    },
+    "status": "candidate"
   }
 ]
